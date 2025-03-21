@@ -1,4 +1,5 @@
-import { Component, computed, input } from '@angular/core';
+import { Component, Input } from '@angular/core';
+
 
 @Component({
   selector: 'app-user',
@@ -8,20 +9,14 @@ import { Component, computed, input } from '@angular/core';
   styleUrl: './user.component.css',
 })
 export class UserComponent {
-  // @Input({ required:true }) avatar!: string;
-  // @Input({ required:true }) name!: string;
 
-  avatar = input.required<string>();   
-  // ==> InputSignal are read-only, i.e unlike signals set() is not application inside template
-  name = input.required<string>();
+  @Input({ required:true }) avatar!: string;
+  @Input({ required:true }) name!: string;
 
-  imagePath = computed(() => {
-    return 'assets/users/' + this.avatar();
-  });
+  onSelectUser() {
+  }
 
-  onSelectUser() {}
-
-  // get imagePath(){
-  //   return 'assets/users/'+this.avatar;
-  // }
+  get imagePath(){
+    return 'assets/users/'+this.avatar;
+  }
 }
