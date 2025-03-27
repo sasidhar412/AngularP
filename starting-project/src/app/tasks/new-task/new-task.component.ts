@@ -1,5 +1,6 @@
 import { Component, EventEmitter, Output, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import {type NewTaskData } from '../task/task.model';
 
 @Component({
   selector: 'app-new-task',
@@ -10,11 +11,22 @@ import { FormsModule } from '@angular/forms';
 })
 export class NewTaskComponent {
   @Output() isCancelled = new EventEmitter<void>(); // using void, if we are not emitting specific type
+  
+  @Output() add = new EventEmitter<NewTaskData>();
+
   enteredTitle = '';
   enteredSummary = signal(''); // using signal for a two way binding
   enteredDate = '';
 
   toCancelled() {
     this.isCancelled.emit(); // emitting void
+  }
+
+  onSubmit() {
+    this.add.emit({
+      title: this.enteredTitle,
+      summary: this.enteredSummary(),
+      date: this.enteredDate,
+    });
   }
 }
